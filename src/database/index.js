@@ -22,5 +22,3 @@ export default async function makeDb() {
 function makeIdFromString(id) {
     return new mongodb.ObjectId(id);
 }
-
-console.log(makeDb())

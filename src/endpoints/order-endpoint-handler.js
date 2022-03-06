@@ -43,8 +43,6 @@ export default function makeOrdersEndpointHandler( {orderActionList} ) {
                 if (err.statusCode && err.errorMessage) {
                     return makeHttpError(err);
                 }
-                console.log('erroring without status code')
-                console.log(err);
                 return err;
             }
         }

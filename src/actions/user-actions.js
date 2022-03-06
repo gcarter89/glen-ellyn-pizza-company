@@ -1,4 +1,5 @@
 import makeUser from "../entities/user.js";
+import crypto from 'crypto';
 
 export default function makeUserActions({ database } = {}) {
     return Object.freeze({
@@ -14,6 +15,11 @@ export default function makeUserActions({ database } = {}) {
         try {
             const db = await database;
             user._id = db.makeId();
+            //we want to create an api key that can be used by the application when a user logs in.
+            // user.apiKey = 
+            
+            
+            // crypto.randomUUID();
 
             const processedUser = documentToUser(user);
 
