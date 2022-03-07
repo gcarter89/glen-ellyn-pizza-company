@@ -1,9 +1,7 @@
 import isValidEmail from "../helpers/validate-email.js";
-import isValidPassword from "../helpers/validate-password.js";
 import capitaliseFirstLetter from "../helpers/capitalise-first-letter.js";
 import typeCheck from "../helpers/check-type.js";
 import isValidPostcode from "../helpers/validate-postcode.js";
-import hashPassword from "../helpers/hash-password.js";
 
 
 export default function makeUser(userInfo) {
