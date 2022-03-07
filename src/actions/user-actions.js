@@ -1,8 +1,12 @@
 import makeUser from "../entities/user.js";
+import crypto from 'crypto';
+import hashPassword from "../helpers/hash-password.js";
+import comparePassword from "../helpers/compare-password.js";
 
 export default function makeUserActions({ database } = {}) {
     return Object.freeze({
         addUser, //post
+        loginUser, //post
         findUserById, //get
         findUserByEmail, //get
         getAllUsers, //get
@@ -14,6 +18,12 @@ export default function makeUserActions({ database } = {}) {
         try {
             const db = await database;
             user._id = db.makeId();
+            user.userPassword = hashPassword(user.userPassword);
+            //we want to create an api key that can be used by the application when a user logs in.
+            // user.apiKey = 
+            
+            
+            // crypto.randomUUID();
 
             const processedUser = documentToUser(user);
 
@@ -35,6 +45,36 @@ export default function makeUserActions({ database } = {}) {
 
         } catch (err) {
             return(`addUser function: ${err}`);
+        }
+    }
+
+    async function loginUser(username, password) {
+
+        try {
+            const db = await database;
+            const loginResult = await db
+                .collection('users')
+                .findOne({userEmail: username})
+
+            if (!loginResult) {
+                throw `Unable to find user with email: ${username}`
+            }
+
+            const loginDetails = {resultEmail: loginResult.userEmail, resultPassword: loginResult.userPassword}
+
+            if (!comparePassword(password, loginDetails.resultPassword)) {
+                return (
+                    {authenticatedUser: false}
+                )
+            }
+
+            return (
+                {authenticatedUser: true}
+            );
+
+            
+        } catch (err) {
+            return (`loginUser function: ${err}`)
         }
     }
 

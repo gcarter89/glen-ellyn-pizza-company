@@ -22,6 +22,7 @@ export default function makeOrdersEndpointHandler( {orderActionList} ) {
 
         async function postOrder(httpRequest) {
             try {
+
                 const requestBody = await httpRequest.body;
 
                 if (!requestBody) {
@@ -37,14 +38,12 @@ export default function makeOrdersEndpointHandler( {orderActionList} ) {
                 if (typeCheck(postQueryResult) != 'object') {
                     throw {statusCode: 400, errorMessage: postQueryResult};
                 }
-                return makeHttpSuccess(postQueryResult);s
+                return makeHttpSuccess(postQueryResult);
 
             } catch(err) {
                 if (err.statusCode && err.errorMessage) {
                     return makeHttpError(err);
                 }
-                console.log('erroring without status code')
-                console.log(err);
                 return err;
             }
         }
@@ -52,6 +51,7 @@ export default function makeOrdersEndpointHandler( {orderActionList} ) {
             try {
                 const { id } = httpRequest.pathParams || {};
                 const { userId } = httpRequest.queryParams || {};
+                
 
                 let result;
 

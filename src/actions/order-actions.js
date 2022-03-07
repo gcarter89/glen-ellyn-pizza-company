@@ -12,15 +12,11 @@ export default function makeOrderActions({ database } = {}) {
 
     async function addOrder(order) {
         try {
-            console.log('this is ok');
 
             const db = await database;
-            console.log('db is ok')
             order._id = db.makeId();
-            console.log('order id ok')
     
             const processedOrder = documentToOrder(order);
-            console.log('processed order ok')
             const { acknowledged, insertedId } = await db
                 .collection('orders')
                 .insertOne(processedOrder)
@@ -158,7 +154,6 @@ export default function makeOrderActions({ database } = {}) {
     }
 
     function documentToOrder(doc) {
-        console.log(doc)
         return makeOrder(doc);
     }
 }

@@ -3,6 +3,7 @@ import isValidPassword from "../helpers/validate-password.js";
 import capitaliseFirstLetter from "../helpers/capitalise-first-letter.js";
 import typeCheck from "../helpers/check-type.js";
 import isValidPostcode from "../helpers/validate-postcode.js";
+import hashPassword from "../helpers/hash-password.js";
 
 
 export default function makeUser(userInfo) {
@@ -71,10 +72,9 @@ export default function makeUser(userInfo) {
         if (typeCheck(password) != 'string') {
             throw new Error('Password value is not a string');
         }
-        // may be split apart this function so as not to rely on one regex check
-        if (!isValidPassword(password)) {
-            throw new Error(`Password value is not valid: must contain at least 1 uppercase letter, 1 lowercase letter, 1 special character, and be 8 characters in length`);
-        }
+        // if (!isValidPassword(password)) {
+        //     throw new Error(`Password value is not valid: must contain at least 1 uppercase letter, 1 lowercase letter, 1 special character, and be 8 characters in length`);
+        // }
     }
 
     function validatePaymentDetails(paymentDetails) {

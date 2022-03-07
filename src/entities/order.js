@@ -22,9 +22,7 @@ export default function makeOrder(orderInfo) {
 
         validatePostcode(orderDeliveryPostcode);
         validateOrderItems(orderItems);
-        console.log('validate order')
         validateOrderStatus(orderStatus);
-        console.log('validate status')
 
         return {
             orderUserId,
@@ -66,14 +64,12 @@ export default function makeOrder(orderInfo) {
     }
 
     function validateOrderItems(itemsArray) {
-        console.log('validate order items array type check')
 
         if (typeCheck(itemsArray) != 'array') {
             throw new Error('Items value is not an array');
         }
 
         itemsArray.forEach(itemTuple => {
-            console.log('for each')
             if (typeCheck(itemTuple) != 'array') {
                 throw new Error('Item tuple is not an array');
             }
@@ -126,7 +122,7 @@ export default function makeOrder(orderInfo) {
             case 'problem':
                 break;
             default:
-                throw new Error(`Status value ${dietary} is invalid.`);
+                throw new Error(`Status value ${status} is invalid.`);
         }
     }
 
