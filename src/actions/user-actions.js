@@ -1,5 +1,6 @@
 import makeUser from "../entities/user.js";
 import hashPassword from "../helpers/hash-password.js";
+import generateToken from "../helpers/generate-token.js";
 import comparePassword from "../helpers/compare-password.js";
 
 export default function makeUserActions({ database } = {}) {
@@ -18,12 +19,7 @@ export default function makeUserActions({ database } = {}) {
             const db = await database;
             user._id = db.makeId();
             user.userPassword = hashPassword(user.userPassword);
-            //we want to create an api key that can be used by the application when a user logs in.
-            // user.apiKey = 
-            
-            
-            // crypto.randomUUID();
-
+            user.apiKey = generateToken(user._id);
             const processedUser = documentToUser(user);
 
             const emailCheck = await findUserByEmail(processedUser.userEmail);
@@ -70,7 +66,7 @@ export default function makeUserActions({ database } = {}) {
             }
 
             return (
-                {authenticatedUser: true}
+                {authenticatedUser: true, token: loginResult.userAPIKey}
             );
 
             
