@@ -1,11 +1,9 @@
 import bcryptjs from "bcryptjs"
 
 export default function hashPassword(password) {
-
-    let salt = bcryptjs.genSaltSync(12);
+    const saltRounds = 12;
+    let salt = bcryptjs.genSaltSync(saltRounds);
     let hashedPassword = bcryptjs.hashSync(password, salt);
-    
-    return (
-        hashedPassword
-    )
+
+    return hashedPassword;
 }

@@ -33,8 +33,23 @@ export default function makeUsersEndpointHandler( {userActionList} ) {
                 throw { statusCode: 400, errorMessage: 'Bad request. POST body not an object.'};
             };
 
-            const postQueryResult = await userActionList.addUser(requestBody);
+            if (httpRequest.path === '/users/login') {
+                
+                const postQueryResult = await userActionList.loginUser(requestBody.username, requestBody.password);
+                
+                if (typeCheck(postQueryResult) != 'object') {
+                    throw {statusCode: 400, errorMessage: postQueryResult};
+                }
+                
+                if (!postQueryResult.authenticatedUser) {
+                    throw {statusCode: 401, errorMessage: 'Sorry, the login credentials supplied were incorrect.'}
+                }
 
+                return makeHttpSuccess(postQueryResult);
+            }
+
+            const postQueryResult = await userActionList.addUser(requestBody);
+            
             if (typeCheck(postQueryResult) != 'object') {
                 throw { statusCode: 400, errorMessage: postQueryResult};
             };

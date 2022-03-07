@@ -21,15 +21,16 @@ app.delete('/items/:id', itemsController);
 
 app.get('/users', usersController);
 app.post('/users', usersController);
+//implement the login process in the controller
+app.post('/users/login', usersController);
 app.get('/users/:id', usersController);
 app.patch('/users/:id', usersController);
 app.delete('/users/:id', usersController);
 
 app.get('/orders', ordersController);
 app.post('/orders', ordersController);
-app.get('/users/:id', usersController);
-app.patch('/users/:id', usersController);
-app.delete('/users/:id', usersController);
+app.patch('/orders/:id', ordersController);
+app.delete('/orders/:id', ordersController);
 
 
 async function itemsController(req, res) {
