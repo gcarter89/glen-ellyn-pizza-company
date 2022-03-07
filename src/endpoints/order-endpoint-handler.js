@@ -58,7 +58,6 @@ export default function makeOrdersEndpointHandler( {orderActionList} ) {
                 if (id) {
                     result = await orderActionList.findOrderbyId(id);
                 } else if (userId) {
-                    console.log(httpRequest.queryParams);
                     result = await orderActionList.findOrderbyUser(userId);
                 } else {
                     result = await orderActionList.getAllOrders();

@@ -122,7 +122,7 @@ export default function makeUsersEndpointHandler( {userActionList} ) {
             };
 
             if (typeCheck(updateResult) != 'object') {
-                throw {statusCode: 400, errorMessage: result};
+                throw {statusCode: 400, errorMessage: updateResult};
             };
 
             return makeHttpSuccess(updateResult);
