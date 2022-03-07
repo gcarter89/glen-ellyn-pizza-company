@@ -1,5 +1,4 @@
 import makeUser from "../entities/user.js";
-import crypto from 'crypto';
 import hashPassword from "../helpers/hash-password.js";
 import comparePassword from "../helpers/compare-password.js";
 
