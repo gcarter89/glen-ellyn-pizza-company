@@ -19,7 +19,7 @@ export default function makeUserActions({ database } = {}) {
             const db = await database;
             user._id = db.makeId();
             user.userPassword = hashPassword(user.userPassword);
-            user.apiKey = generateToken(user._id);
+            user.apiKey = generateToken();
             const processedUser = documentToUser(user);
 
             const emailCheck = await findUserByEmail(processedUser.userEmail);
