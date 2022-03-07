@@ -140,9 +140,15 @@ export default function makeUserActions({ database } = {}) {
             const userDoc = await findUserById(id);
             const updateObject = {};
 
+            //ensure that update values adhere to business rules of the entity
             for (const property in userDoc) {
                 if (values.hasOwnProperty(property)) {
-                    updateObject[property] = values[property];
+                    if (values['userPassword']) {
+                        updateObject[property] = hashPassword(values[property])
+                        values[property] = updateObject[property]
+                    } else {
+                        updateObject[property] = values[property];
+                    }
                     continue;
                 }
                 if (userDoc[property] === userDoc['_id']) {
@@ -151,7 +157,6 @@ export default function makeUserActions({ database } = {}) {
                 };
                 updateObject[property] = userDoc[property];
             };
-
             documentToUser(updateObject);
 
             const updateResult = await db
