@@ -35,7 +35,7 @@ export default function makeUsersEndpointHandler( {userActionList} ) {
 
             if (httpRequest.path === '/users/authenticate') {
                 
-                const postQueryResult = await userActionList.loginUser(requestBody.userEmail, requestBody.password);
+                const postQueryResult = await userActionList.loginUser(requestBody.userEmail, requestBody.userPassword);
                 
                 if (typeCheck(postQueryResult) != 'object') {
                     throw {statusCode: 400, errorMessage: postQueryResult};
