@@ -21,8 +21,7 @@ app.delete('/items/:id', itemsController);
 
 app.get('/users', usersController);
 app.post('/users', usersController);
-//implement the login process in the controller
-app.post('/users/login', usersController);
+app.post('/users/authenticate', usersController);
 app.get('/users/:id', usersController);
 app.patch('/users/:id', usersController);
 app.delete('/users/:id', usersController);
