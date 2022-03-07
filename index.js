@@ -35,18 +35,21 @@ app.delete('/orders/:id', ordersController);
 async function itemsController(req, res) {
     const httpRequest = adaptRequest(req);
     const result = await handlers.itemsEndpointHandler(httpRequest);
+    res.status(result.statusCode);
     res.send(result)
 }
 
 async function usersController(req, res) {
     const httpRequest = adaptRequest(req);
     const result = await handlers.usersEndpointHandler(httpRequest);
+    res.status(result.statusCode);
     res.send(result);
 }
 
 async function ordersController(req, res) {
     const httpRequest = adaptRequest(req);
     const result = await handlers.ordersEndpointHandler(httpRequest);
+    res.status(result.statusCode);
     res.send(result)
 }
 
