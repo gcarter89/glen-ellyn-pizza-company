@@ -57,14 +57,16 @@ export default function makeUserActions({ database } = {}) {
                 .findOne({userEmail: username})
 
             if (!loginResult) {
-                throw `Unable to find user with email: ${username}`
+                return (
+                    {authenticatedUser: false, userFound: false, passwordMatch: false}
+                )
             }
 
             const loginDetails = {resultEmail: loginResult.userEmail, resultPassword: loginResult.userPassword}
 
             if (!comparePassword(password, loginDetails.resultPassword)) {
                 return (
-                    {authenticatedUser: false}
+                    {authenticatedUser: false, userFound: true, passwordMatch: false}
                 )
             }
 

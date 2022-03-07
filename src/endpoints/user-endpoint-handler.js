@@ -35,14 +35,14 @@ export default function makeUsersEndpointHandler( {userActionList} ) {
 
             if (httpRequest.path === '/users/authenticate') {
                 
-                const postQueryResult = await userActionList.loginUser(requestBody.username, requestBody.password);
+                const postQueryResult = await userActionList.loginUser(requestBody.userEmail, requestBody.password);
                 
                 if (typeCheck(postQueryResult) != 'object') {
                     throw {statusCode: 400, errorMessage: postQueryResult};
                 }
                 
                 if (!postQueryResult.authenticatedUser) {
-                    throw {statusCode: 401, authenticatedUser: postQueryResult.authenticatedUser}
+                    throw {statusCode: 401, authenticatedUser: postQueryResult.authenticatedUser, userFound: postQueryResult.userFound, passwordMatch: postQueryResult.passwordMatch}
                 }
 
                 return makeHttpSuccess(postQueryResult);
@@ -57,7 +57,7 @@ export default function makeUsersEndpointHandler( {userActionList} ) {
             return makeHttpSuccess(postQueryResult);
 
         } catch(err) {
-            if (err.statusCode && err.errorMessage) {
+            if (err.statusCode) {
                 return makeHttpError(err);
             };
             return err;
