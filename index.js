@@ -27,6 +27,7 @@ app.patch('/users/:id', usersController);
 app.delete('/users/:id', usersController);
 
 app.get('/orders', ordersController);
+app.get('/orders/:id', ordersController);
 app.post('/orders', ordersController);
 app.patch('/orders/:id', ordersController);
 app.delete('/orders/:id', ordersController);

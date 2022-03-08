@@ -71,13 +71,14 @@ export default function makeOrderActions({ database } = {}) {
     async function findOrderbyId(id) {
         try {
             const db = await database;
-            const orderResult = await db
+            const ordersResult = await db
                 .collection('orders')
-                .find({_id: db.makeId(id)})
-            if (!orderResult) {
+                .find({ _id: db.makeId(id)})
+                .toArray()
+            if (!ordersResult) {
                 throw `Unable to find order with id: ${id}`;
             }
-            return documentToOrder(orderResult);
+            return ordersResult.map(documentToOrder);
 
         } catch(err) {
             return (`findOrderbyId function: ${err}`);
@@ -85,15 +86,21 @@ export default function makeOrderActions({ database } = {}) {
     }
 
     async function findOrderbyUser(userId) {
+        console.log(userId)
         try {
             const db = await database;
-            const orderResult = await db
+            const ordersResult = await db
                 .collection('orders')
                 .find({orderUserId: userId})
-            if (!orderResult) {
-                throw `Unable to find order with user id: ${id}`;
+                .toArray()
+
+            
+            if (!ordersResult) {
+                throw `Unable to find order with user id: ${userId}`;
             }
-            return documentToOrder(orderResult);
+
+            console.log(ordersResult)
+            return ordersResult.map(documentToOrder);
 
         } catch(err) {
             return (`findOrderbyUser function: ${err}`)

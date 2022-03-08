@@ -51,7 +51,6 @@ export default function makeOrdersEndpointHandler( {orderActionList} ) {
             try {
                 const { id } = httpRequest.pathParams || {};
                 const { userId } = httpRequest.queryParams || {};
-                
 
                 let result;
 
@@ -59,6 +58,7 @@ export default function makeOrdersEndpointHandler( {orderActionList} ) {
                     result = await orderActionList.findOrderbyId(id);
                 } else if (userId) {
                     result = await orderActionList.findOrderbyUser(userId);
+                    
                 } else {
                     result = await orderActionList.getAllOrders();
                 }
