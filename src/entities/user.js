@@ -71,9 +71,6 @@ export default function makeUser(userInfo) {
         if (typeCheck(password) != 'string') {
             throw new Error('Password value is not a string');
         }
-        // if (!isValidPassword(password)) {
-        //     throw new Error(`Password value is not valid: must contain at least 1 uppercase letter, 1 lowercase letter, 1 special character, and be 8 characters in length`);
-        // }
     }
 
     function validatePaymentDetails(paymentDetails) {

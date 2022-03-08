@@ -156,9 +156,9 @@ This is an example of how to list things you need to use the software and how to
   
   **Important Notice: Please run these in the order below as orders will not be successfully saved since they depend on checks on user and item records** 
   ```sh
-  npm run seed users
-  npm run seed items
-  npm run seed orders
+  npm run users
+  npm run items
+  npm run orders
   ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
