@@ -341,7 +341,6 @@ Project Link: [https://github.com/gcarter89/glen-ellyn-pizza-company](https://gi
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/gcarter89/glen-ellyn-pizza-company.svg?style=for-the-badge
