@@ -5,13 +5,13 @@ import comparePassword from "../helpers/compare-password.js";
 
 export default function makeUserActions({ database } = {}) {
     return Object.freeze({
-        addUser, //post
-        loginUser, //post
-        findUserById, //get
-        findUserByEmail, //get
-        getAllUsers, //get
-        updateUser, //patch
-        deleteUser, //delete
+        addUser,
+        loginUser,
+        findUserById,
+        findUserByEmail,
+        getAllUsers,
+        updateUser,
+        deleteUser,
     })
 
     async function addUser(user) {
@@ -66,7 +66,7 @@ export default function makeUserActions({ database } = {}) {
             }
 
             return (
-                {authenticatedUser: true, token: loginResult.userAPIKey}
+                {authenticatedUser: true, token: loginResult.apiKey}
             );
 
             
@@ -135,7 +135,6 @@ export default function makeUserActions({ database } = {}) {
             const userDoc = await findUserById(id);
             const updateObject = {};
 
-            //ensure that update values adhere to business rules of the entity
             for (const property in userDoc) {
                 if (values.hasOwnProperty(property)) {
                     if (values['userPassword']) {
@@ -146,6 +145,11 @@ export default function makeUserActions({ database } = {}) {
                     }
                     continue;
                 }
+
+                if (values['apiKey']) {
+                    delete values['apiKey']
+                }
+
                 if (userDoc[property] === userDoc['_id']) {
                     delete updateObject['_id'];
                     continue;
@@ -173,7 +177,7 @@ export default function makeUserActions({ database } = {}) {
             return updateResult;
 
         } catch(err) {
-            return(`updateUser function ${err}`);
+            return(`updateUser function: ${err}`);
         }
     }
 

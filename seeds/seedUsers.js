@@ -84,7 +84,7 @@ export const users = [
         "userPaymentDetails" : []
     },
     {
-        "userEmail": "karlDanders@protonmail.com",
+        "userEmail": "karldanders@protonmail.com",
         "userPassword": "Radicchio212!",
         "userFirstName": "Karl",
         "userLastName": "Dandleton",
