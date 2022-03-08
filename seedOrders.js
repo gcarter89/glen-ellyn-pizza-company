@@ -1,3 +1,6 @@
+import { orders } from './seeds/seedOrders.js';
+
+
 orders.forEach(order => {
     fetch('http://localhost:9090/orders', {
         method: "POST",
