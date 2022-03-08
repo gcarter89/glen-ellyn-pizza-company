@@ -19,13 +19,13 @@ export const orders = [
         "orderDeliveryPostcode": "cv31 2lk",
         "orderItems":[
             ["Salty seadog", 2, 'Small'],
-            ["Mozarella Sticks", 1, "10 sticks"],
+            ["Mozzarella Sticks", 1, "10 sticks"],
             ["Strawberry Milkshake", 3, "Small"]
         ],
         "orderStatus":"received"
     },
     {
-        "orderUserId": "karlDanders@protonmail.com",
+        "orderUserId": "karldanders@protonmail.com",
         "orderDeliveryAddress1": "211 Generic Place",
         "orderDeliveryAddress2": "Islington",
         "orderDeliveryPostcode": "N1 7ak",
@@ -71,7 +71,7 @@ export const orders = [
         "orderItems":[
             ["PepTalk", 5, 'Large'],
             ["Manchego Monster", 1, "Large"],
-            ["Crust Dips", 1, "Garlic & Herb"]
+            ["Crust Dips", 1, "Garlic & Herb"],
             ["Crust Dips", 2, "Hot Sauce"]
             
         ],
