@@ -1,4 +1,4 @@
-[
+export const items = [
     {
         "itemName": "PepTalk",
         "itemCategories": [
@@ -146,7 +146,7 @@
             "BBQ",
             "Garlic & Herb",
             "Hot Sauce",
-            "Ketcup"
+            "Ketchup"
         ],
         "dietary": "vegan",
         "basePrice":0.75
