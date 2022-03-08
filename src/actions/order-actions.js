@@ -15,6 +15,41 @@ export default function makeOrderActions({ database } = {}) {
 
             const db = await database;
             order._id = db.makeId();
+
+            const userCheck = await db
+                .collection('users')
+                .findOne({userEmail: order.orderUserId});
+
+            if (!userCheck) {
+                throw `Query level error: Unable to find user with email: ${order.orderUserId}`;
+            };
+
+            async function itemCheck(name) {
+                const itemCall = await db
+                    .collection('items')
+                    .findOne({itemName: name})
+                
+                return itemCall
+            }
+
+            for (let i = 0; i < order.orderItems.length - 1; i++) {
+                const itemCheck = await db
+                    .collection('items')
+                    .findOne({itemName: order.orderItems[i][0]})
+
+                console.log(itemCheck)
+
+                if (!itemCheck) {
+                    throw `Query level error: Unable to find item with name: ${order.orderItems[i][0]}`;
+                }
+
+                const validSize = itemCheck.availableSizes.includes(order.orderItems[i][2]);
+
+                if (!validSize) {
+                    throw `Query level error: Unable to find size with name: ${size}`;
+                }
+            }
+                
     
             const processedOrder = documentToOrder(order);
             const { acknowledged, insertedId } = await db
@@ -54,7 +89,7 @@ export default function makeOrderActions({ database } = {}) {
             const db = await database;
             const orderResult = await db
                 .collection('orders')
-                .find({orderUserId: db.makeId(userId)})
+                .find({orderUserId: userId})
             if (!orderResult) {
                 throw `Unable to find order with user id: ${id}`;
             }

@@ -70,7 +70,7 @@ export default function makeOrder(orderInfo) {
 
         itemsArray.forEach(itemArray => {
             if (typeCheck(itemArray) != 'array') {
-                throw new Error('Item in order is not an array');
+                throw new Error(`Item in order is not an array`);
             }
 
             if (itemArray.length != 3) {
