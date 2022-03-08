@@ -40,7 +40,6 @@ export default function makeOrder(orderInfo) {
         if (typeCheck(id) != 'string') {
             throw new Error('id value is not a string');
         }
-
     }
 
     function validateAddressLine(addressLine) {
@@ -69,30 +68,35 @@ export default function makeOrder(orderInfo) {
             throw new Error('Items value is not an array');
         }
 
-        itemsArray.forEach(itemTuple => {
-            if (typeCheck(itemTuple) != 'array') {
-                throw new Error('Item tuple is not an array');
+        itemsArray.forEach(itemArray => {
+            if (typeCheck(itemArray) != 'array') {
+                throw new Error('Item in order is not an array');
             }
 
-            if (itemTuple.length != 2) {
-                throw new Error('Item tuple is not composed of 2 parts');
+            if (itemArray.length != 3) {
+                throw new Error('Item array is not composed of 3 parts');
             }
 
 
-            if (typeCheck(itemTuple[0]) != 'string') {
-                throw new Error('First element of item tuple ID is not a string');
+            if (typeCheck(itemArray[0]) != 'string') {
+                throw new Error('First element of item array ID is not a string');
             }
 
-            if (itemTuple[0] === '') {
-                throw new Error('First element of item tuple ID cannot be an empty string');
+
+            if (itemArray[0] === '') {
+                throw new Error('First element of item array ID cannot be an empty string');
             }
 
-            if (typeCheck(itemTuple[1]) != 'number') {
-                throw new Error('Second element of item tuple quantity is not a number');
+            if (typeCheck(itemArray[1]) != 'number') {
+                throw new Error('Second element of item array quantity is not a number');
             }
 
-            if (itemTuple[1] <= 0) {
+            if (itemArray[1] <= 0) {
                 throw new Error('Quantity cannot be zero');
+            }
+
+            if (typeCheck(itemArray[2]) != 'string') {
+                throw new Error('Size is not a string')
             }
         })
     }
@@ -138,31 +142,3 @@ export default function makeOrder(orderInfo) {
         }
     }
 }
-
-    //we need...
-
-    // an order _id
-
-    // a user_id associated with the order - this cannot be changed
-
-    // Delivered to: address of the person making the order
-        // populate from user unless there's an alternate address added by the user.
-
-    // an array of [itemId, quantity] tuples - itemId cannot be changed and must be unique within the array, quantity can.
-        // if quantity is zero, remove the item.
-        // think about item restrictions.
-
-    // an order status with the following fields
-        //sent - order has been sent to the restaurant
-        //received - order has been received by the restaurant
-        //accepted - order has been accepted by the restaurant - pay
-        //rejected - order has been rejected by the restaurant - don't pay
-        //in progress - order is being prepared by the restaurant
-        //delayed - delay in order delivery
-        //delivering - the order is now with the delivery driver/rider  
-        //delivered - the order has been delivered
-        //problem - there is a problem with the order
-
-
-    //things to ponder
-        // ETA for delivery?

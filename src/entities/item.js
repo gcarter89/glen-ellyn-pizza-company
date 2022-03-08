@@ -122,7 +122,6 @@ export default function makeItem(itemInfo) {
             itemDescription: itemDescription,
             availableSizes: availableSizes,
             dietary: dietary,
-            //check this
             basePrice: parseFloat(basePrice),
             ...otherInfo
         };

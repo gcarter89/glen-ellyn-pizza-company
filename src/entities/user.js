@@ -33,7 +33,6 @@ export default function makeUser(userInfo) {
         validateContactNumber(userContactNumber);
         validateAdmin(userAdmin);
         validatePaymentDetails(userPaymentDetails);
-        validateAPIKey(userAPIKey);
         return {
             userEmail,
             userPassword,
@@ -45,7 +44,6 @@ export default function makeUser(userInfo) {
             userContactNumber,
             userAdmin,
             userPaymentDetails,
-            userAPIKey,
             ...otherInfo
         }
     }
@@ -119,14 +117,8 @@ export default function makeUser(userInfo) {
         }
     }
 
-    function validateAPIKey(key) {
-        if (typeCheck(key) != 'string') {
-            throw new Error('API Key is not a string')
-        }
-    }
 
-
-    function normalize({userEmail, userPassword, userFirstName, userLastName, userAddressLine1, userAddressLine2, userPostcode, userContactNumber, userAdmin, userPaymentDetails, userAPIKey, ...otherInfo}) {
+    function normalize({userEmail, userPassword, userFirstName, userLastName, userAddressLine1, userAddressLine2, userPostcode, userContactNumber, userAdmin, userPaymentDetails, ...otherInfo}) {
         return {
             userEmail: userEmail.toLowerCase(),
             userPassword: userPassword,
@@ -138,7 +130,6 @@ export default function makeUser(userInfo) {
             userContactNumber: userContactNumber,
             userAdmin: userAdmin,
             userPaymentDetails: userPaymentDetails,
-            userAPIKey: userAPIKey,
             ...otherInfo
         }
     }
