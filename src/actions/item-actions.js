@@ -2,14 +2,14 @@ import makeItem from "../entities/item.js";
 
 export default function makeItemActions({ database } = {}) {
     return Object.freeze({
-        addItem, //post
-        findItemById, //get
-        findItemByName, //get
-        getAllItems, //get
-        updateItem, //patch
-        deleteItem, //delete
+        addItem,
+        findItemById,
+        findItemByName,
+        getAllItems,
+        updateItem,
+        deleteItem,
     })
-    //unique check for name
+
     async function addItem(item) {
         try {
             const db = await database;
