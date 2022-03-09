@@ -198,7 +198,6 @@ export default function makeUserActions({ database } = {}) {
             if (deleteResult.deletedCount === 0) {
                 throw `No user with ${id} was deleted`;
             }
-
             return deleteResult;
 
         } catch(err) {

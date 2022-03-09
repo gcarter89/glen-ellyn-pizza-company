@@ -37,7 +37,6 @@ export default function makeOrderActions({ database } = {}) {
                     .collection('items')
                     .findOne({itemName: order.orderItems[i][0]})
 
-                console.log(itemCheck)
 
                 if (!itemCheck) {
                     throw `Query level error: Unable to find item with name: ${order.orderItems[i][0]}`;
@@ -73,12 +72,11 @@ export default function makeOrderActions({ database } = {}) {
             const db = await database;
             const ordersResult = await db
                 .collection('orders')
-                .find({ _id: db.makeId(id)})
-                .toArray()
+                .findOne({ _id: db.makeId(id)})
             if (!ordersResult) {
                 throw `Unable to find order with id: ${id}`;
             }
-            return ordersResult.map(documentToOrder);
+            return documentToOrder(ordersResult);
 
         } catch(err) {
             return (`findOrderbyId function: ${err}`);
@@ -86,20 +84,17 @@ export default function makeOrderActions({ database } = {}) {
     }
 
     async function findOrderbyUser(userId) {
-        console.log(userId)
         try {
             const db = await database;
             const ordersResult = await db
                 .collection('orders')
                 .find({orderUserId: userId})
                 .toArray()
-
             
             if (!ordersResult) {
                 throw `Unable to find order with user id: ${userId}`;
             }
 
-            console.log(ordersResult)
             return ordersResult.map(documentToOrder);
 
         } catch(err) {
@@ -128,8 +123,9 @@ export default function makeOrderActions({ database } = {}) {
     async function updateOrder(id, values) {
         try {
             const db = await database;
-            const orderDoc = await findOrderbyId(id);
+            let orderDoc = await findOrderbyId(id);
             const updateObject = {};
+
     
             for (const property in orderDoc) {
                 if (values.hasOwnProperty(property)) {
@@ -144,6 +140,7 @@ export default function makeOrderActions({ database } = {}) {
                 updateObject[property] = orderDoc[property];
     
             }
+
             documentToOrder(updateObject);
 
             const updateResult = await db
@@ -155,11 +152,11 @@ export default function makeOrderActions({ database } = {}) {
                     $set: values
                 })
 
-            if (!updateResults) {
+            if (!updateResult) {
                 throw `Query level error: Unable to update order ${id}`;
             }
 
-            if (updateResults.modifiedCount === 0) {
+            if (updateResult.modifiedCount === 0) {
                 throw `No order record with ${id} was modified`;
             }
 

@@ -132,7 +132,7 @@ export default function makeItemsEndpointHandler({itemActionList}) {
                 throw {statusCode: 404, errorMessage: `Unable to delete item ${id}`}
             }
 
-            return makeHttpSuccess(deleteResult, 204);
+            return makeHttpSuccess(deleteResult, 200);
 
         } catch(err) {
             if (err.statusCode && err.errorMessage) {

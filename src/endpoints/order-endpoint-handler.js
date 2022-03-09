@@ -50,15 +50,14 @@ export default function makeOrdersEndpointHandler( {orderActionList} ) {
         async function getOrder(httpRequest) {
             try {
                 const { id } = httpRequest.pathParams || {};
-                const { userId } = httpRequest.queryParams || {};
+                const { userid } = httpRequest.queryParams || {};
 
                 let result;
 
                 if (id) {
                     result = await orderActionList.findOrderbyId(id);
-                } else if (userId) {
-                    result = await orderActionList.findOrderbyUser(userId);
-                    
+                } else if (userid) {
+                    result = await orderActionList.findOrderbyUser(userid);
                 } else {
                     result = await orderActionList.getAllOrders();
                 }
@@ -84,7 +83,7 @@ export default function makeOrdersEndpointHandler( {orderActionList} ) {
         async function patchOrder(httpRequest) {
             try {
                 const { id } = httpRequest.pathParams || {}
-                const {body: updateValues} = httpRequest.queryParams || {}
+                const {body: updateValues} = httpRequest || {}
 
                 if (id && !updateValues) {
                     throw {statusCode: 404, errorMessage: 'Order ID is present. Update values are not present.'};
@@ -98,6 +97,7 @@ export default function makeOrdersEndpointHandler( {orderActionList} ) {
                     throw {statusCode: 404, errorMessage: 'Order ID is not present. Update values are not present.'}
                 }
 
+                
                 const updateResult = await orderActionList.updateOrder(id, updateValues)
 
                 if (!updateResult) {
@@ -140,7 +140,7 @@ export default function makeOrdersEndpointHandler( {orderActionList} ) {
                     throw {statusCode: 400, errorMessage: deleteResult};
                 }
 
-                return makeHttpSuccess(deleteResult, 204);
+                return makeHttpSuccess(deleteResult, 200);
 
             } catch(err) {
                 if (err.statusCode && err.errorMessage) {
